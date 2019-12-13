@@ -1,12 +1,13 @@
 package com.ejbank.entities.user;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+@Entity
 @Table(name="ejbank_customer")
-@PrimaryKeyJoinColumn(name="id")
+@DiscriminatorValue("customer")
 public class CustomerEntity extends UserEntity {
 
 	/**

@@ -2,6 +2,7 @@ package com.ejbank.entities.user;
 
 import java.io.Serializable;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -12,12 +13,15 @@ import javax.persistence.Table;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
+@DiscriminatorColumn(name = "type")
 @Table(name="ejbank_user")
+
 @NamedQueries({
 	@NamedQuery(name="UserEntity.findByLastname", query="SELECT c FROM UserEntity c where c.lastname = :lastname"),
 	@NamedQuery(name="UserEntity.findById", query="SELECT c FROM UserEntity c where c.id = :id"),
 })
-public class UserEntity implements Serializable {
+
+public abstract class UserEntity implements Serializable {
 	
 	private static final long serialVersionUID = 1L;	
 	@Column(name="id") 
@@ -26,7 +30,6 @@ public class UserEntity implements Serializable {
 	@Column(name="firstname") private String firstname ;
 	@Column(name="lastname") private String lastname ;
 	@Column(name="login") private String login ;
-	@Column(name="type") private String type ;
 	
     public int getId() { return this.id; }
 
@@ -42,9 +45,5 @@ public class UserEntity implements Serializable {
 	
 	public String getFirstname() {
 		return firstname;
-	}
-	
-	public String getType() {
-		return type;
-	}		
+	}	
 }
